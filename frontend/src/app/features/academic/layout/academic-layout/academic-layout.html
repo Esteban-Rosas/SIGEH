@@ -1,0 +1,24 @@
+<div class="layout" [class.sidebar-cerrado]="!sidebarAbierto">
+
+  <!-- Sidebar -->
+  <app-sidebar
+    [abierto]="sidebarAbierto"
+    (toggle)="toggleSidebar()">
+  </app-sidebar>
+
+  <!-- Área principal -->
+  <div class="layout-main">
+
+    <!-- Header -->
+    <app-header
+      [sidebarAbierto]="sidebarAbierto"
+      (toggleSidebar)="toggleSidebar()">
+    </app-header>
+
+    <!-- Contenido dinámico -->
+    <main class="layout-contenido">
+      <router-outlet />
+    </main>
+
+  </div>
+</div>

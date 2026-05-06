@@ -1,0 +1,190 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: var(--color-primary);
+  box-shadow: 0 2px 12px rgba(13,71,161,0.2);
+
+  /* Oculto por defecto — se desliza desde arriba */
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.4s ease;
+}
+
+.navbar.navbar-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* Logo */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.navbar-logo {
+  height: 48px;
+  width: auto;
+}
+
+.navbar-nombre {
+  color: var(--color-white);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  max-width: 160px;
+}
+
+/* Links escritorio */
+.navbar-links {
+  display: flex;
+  list-style: none;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links a {
+  color: rgba(255,255,255,0.85);
+  font-size: 13.5px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.navbar-links a:hover,
+.navbar-links a.activo {
+  background: rgba(255,255,255,0.15);
+  color: var(--color-white);
+}
+
+/* Botón sistema */
+.navbar-btn-sistema {
+  background: var(--color-accent);
+  color: var(--color-primary-dark);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.navbar-btn-sistema:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
+
+/* Hamburguesa */
+.navbar-hamburguesa {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.navbar-hamburguesa span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-white);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+  transform-origin: center;
+}
+
+/* Animación hamburguesa → X */
+.navbar-hamburguesa span.rotar-1 {
+  transform: translateY(7px) rotate(45deg);
+}
+.navbar-hamburguesa span.ocultar {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.navbar-hamburguesa span.rotar-2 {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Menú móvil */
+.navbar-mobile {
+  display: none;
+  background: var(--color-primary-dark);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.navbar-mobile.abierto {
+  max-height: 400px;
+}
+
+.navbar-mobile ul {
+  list-style: none;
+  padding: 12px 0;
+}
+
+.navbar-mobile ul li a {
+  display: block;
+  color: rgba(255,255,255,0.88);
+  padding: 12px 24px;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.navbar-mobile ul li a:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.mobile-btn-sistema {
+  color: var(--color-accent) !important;
+  font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .navbar-links,
+  .navbar-btn-sistema {
+    display: none;
+  }
+
+  .navbar-hamburguesa {
+    display: flex;
+  }
+
+  .navbar-mobile {
+    display: block;
+  }
+
+  .navbar-nombre {
+    font-size: 13px;
+    max-width: 130px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-nombre {
+    display: none;
+  }
+}

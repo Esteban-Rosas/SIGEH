@@ -1,0 +1,39 @@
+<aside class="sidebar" [class.cerrado]="!abierto">
+  <!-- Marca -->
+  <div class="sidebar-marca">
+    <img src="assets/images/heroes.png" alt="SIGEH" class="sidebar-logo" />
+    <div class="sidebar-marca-texto" *ngIf="abierto">
+      <span class="sidebar-nombre">SIGEH</span>
+      <span class="sidebar-sub">C.E. Héroes</span>
+    </div>
+    <button class="sidebar-toggle" (click)="onToggle()" [attr.aria-label]="abierto ? 'Colapsar menú' : 'Expandir menú'">
+      <i class="material-icons-round">{{ abierto ? 'chevron_left' : 'chevron_right' }}</i>
+    </button>
+  </div>
+
+  <!-- Menú -->
+  <nav class="sidebar-nav">
+    <ul>
+      <li *ngFor="let item of itemsVisibles">
+        <a
+          [routerLink]="item.ruta"
+          routerLinkActive="activo"
+          class="sidebar-item"
+          [title]="abierto ? '' : item.label"
+        >
+          <i class="material-icons-round sidebar-icono-icon">{{ item.icono }}</i>
+          <span class="sidebar-label" *ngIf="abierto">{{ item.label }}</span>
+          <!-- cuando está colapsado, el título nativo ya da pista, no hace falta label oculto -->
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Footer -->
+  <div class="sidebar-footer">
+    <button class="sidebar-item sidebar-logout" title="Cerrar sesión">
+      <i class="material-icons-round sidebar-icono-icon">logout</i>
+      <span class="sidebar-label" *ngIf="abierto">Cerrar sesión</span>
+    </button>
+  </div>
+</aside>

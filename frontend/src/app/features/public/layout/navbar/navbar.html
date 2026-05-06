@@ -1,0 +1,75 @@
+<nav class="navbar" [class.navbar-visible]="navbarVisible">
+  <div class="navbar-container">
+
+    <!-- Logo -->
+    <a routerLink="/" class="navbar-brand" (click)="cerrarMenu()">
+      <img src="assets/images/heroes.png" alt="Centro Educativo Héroes" class="navbar-logo">
+      <span class="navbar-nombre">Centro Educativo Héroes</span>
+    </a>
+
+    <!-- Links escritorio -->
+    <ul class="navbar-links">
+      <li>
+        <a routerLink="/"
+           routerLinkActive="activo"
+           [routerLinkActiveOptions]="{exact:true}">
+          Inicio
+        </a>
+      </li>
+      <li>
+        <a routerLink="/quienes-somos" routerLinkActive="activo">
+          Nuestro colegio
+        </a>
+      </li>
+      <li>
+        <a routerLink="/servicios" routerLinkActive="activo">
+          Servicios educativos
+        </a>
+      </li>
+      <li>
+        <a routerLink="/noticias" routerLinkActive="activo">
+          Noticias
+        </a>
+      </li>
+      <li>
+        <a routerLink="/contacto" routerLinkActive="activo">
+          Contáctenos
+        </a>
+      </li>
+    </ul>
+
+    <!-- Botón sistema académico -->
+    <a routerLink="/sistema" class="navbar-btn-sistema">
+      Acceso al sistema
+    </a>
+
+    <!-- Hamburguesa móvil -->
+    <button
+      class="navbar-hamburguesa"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuAbierto">
+      <span [class.rotar-1]="menuAbierto"></span>
+      <span [class.ocultar]="menuAbierto"></span>
+      <span [class.rotar-2]="menuAbierto"></span>
+    </button>
+
+  </div>
+
+  <!-- Menú móvil -->
+  <div class="navbar-mobile" [class.abierto]="menuAbierto">
+    <ul>
+      <li><a routerLink="/" (click)="cerrarMenu()">Inicio</a></li>
+      <li><a routerLink="/quienes-somos" (click)="cerrarMenu()">Nuestro colegio</a></li>
+      <li><a routerLink="/servicios" (click)="cerrarMenu()">Servicios educativos</a></li>
+      <li><a routerLink="/noticias" (click)="cerrarMenu()">Noticias</a></li>
+      <li><a routerLink="/contacto" (click)="cerrarMenu()">Contáctenos</a></li>
+      <li>
+        <a routerLink="/sistema"
+           (click)="cerrarMenu()"
+           class="mobile-btn-sistema">
+          Acceso al sistema
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

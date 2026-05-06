@@ -1,0 +1,46 @@
+<div class="dashboard">
+  <!-- Cabecera de bienvenida -->
+  <div class="dashboard-bienvenida">
+    <div class="dashboard-bienvenida-texto">
+      <h1 class="dashboard-titulo">{{ saludo }}, Administrador</h1>
+      <p class="dashboard-sub">Bienvenido al Sistema de Gestión Educativa Héroes</p>
+    </div>
+    <div class="dashboard-badge">
+      <i class="material-icons-round">auto_awesome</i>
+      <span>SIGEH v1.1</span>
+    </div>
+  </div>
+
+  <!-- Tarjetas resumen (estadísticas) -->
+  <div class="dashboard-cards">
+    <div class="dash-card" *ngFor="let item of resumen">
+      <div class="dash-card-icono" [style.background]="item.color + '18'">
+        <i class="material-icons-round" [style.color]="item.color">{{ item.icono }}</i>
+      </div>
+      <div class="dash-card-info">
+        <span class="dash-card-valor">{{ item.valor }}</span>
+        <span class="dash-card-label">{{ item.label }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección "En construcción" rediseñada -->
+  <div class="dashboard-construccion">
+    <div class="construccion-card">
+      <div class="construccion-icono">
+        <i class="material-icons-round">construction</i>
+      </div>
+      <div class="construccion-texto">
+        <h3>Módulos en desarrollo</h3>
+        <p>
+          Pronto tendrás acceso a reportes, gráficos y seguimiento académico en tiempo real.
+          Estamos preparando una experiencia completa para la comunidad educativa.
+        </p>
+      </div>
+      <div class="construccion-barra">
+        <div class="construccion-progreso"></div>
+      </div>
+      <span class="construccion-estado">Trabajando en ello</span>
+    </div>
+  </div>
+</div>

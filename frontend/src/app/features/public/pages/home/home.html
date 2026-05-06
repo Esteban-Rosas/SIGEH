@@ -1,0 +1,305 @@
+<!-- SPLASH — pantalla completa de bienvenida -->
+<section class="splash">
+  <div class="splash-particles">
+    <div class="sp sp-1"></div>
+    <div class="sp sp-2"></div>
+    <div class="sp sp-3"></div>
+    <div class="sp sp-4"></div>
+  </div>
+
+  <div class="splash-contenido">
+    <img
+      src="assets/images/heroes.png"
+      alt="Centro Educativo Héroes"
+      class="splash-logo">
+
+    <h1 class="splash-titulo">Centro Educativo Héroes</h1>
+    <p class="splash-slogan">
+      Educación que transforma · Héroes que trascienden
+    </p>
+
+    <button class="splash-btn" (click)="scrollAlContenido()">
+      Conocer más
+      <span class="splash-flecha">↓</span>
+    </button>
+  </div>
+
+  <!-- Indicador de scroll -->
+  <div class="splash-scroll-hint">
+    <div class="scroll-mouse">
+      <div class="scroll-rueda"></div>
+    </div>
+    <span>Desplázate para explorar</span>
+  </div>
+</section>
+
+<!-- NAVBAR (aparece al hacer scroll) -->
+<app-navbar />
+
+<!-- CONTENIDO PRINCIPAL -->
+<main id="contenido-principal">
+
+  <!-- HERO con texto -->
+  <section class="hero">
+    <div class="hero-particles">
+      <div class="particle particle-1"></div>
+      <div class="particle particle-2"></div>
+      <div class="particle particle-3"></div>
+      <div class="particle particle-4"></div>
+      <div class="particle particle-5"></div>
+    </div>
+
+    <div class="hero-contenido">
+      <div class="hero-texto">
+        <div class="hero-badge animate-badge">
+          ⭐ Aprendizaje basado en proyectos
+        </div>
+
+        <h1 class="hero-titulo animate-title">
+          Educación que <span class="hero-titulo-acento">transforma</span>,<br>
+          héroes que <span class="hero-titulo-acento">trascienden</span>
+        </h1>
+
+        <p class="hero-descripcion animate-desc">
+          En el Centro Educativo Héroes fomentamos un aprendizaje significativo,
+          dinámico y transformador. Formamos estudiantes con valores, creatividad
+          y habilidades para el futuro.
+        </p>
+
+        <div class="hero-botones animate-buttons">
+          <a routerLink="/servicios" class="btn-primario">
+            Conoce nuestra oferta
+          </a>
+          <a href="https://wa.me/573000000000"
+             target="_blank"
+             class="btn-whatsapp">
+            <span class="wsp-icono">💬</span>
+            Escríbenos por WhatsApp
+          </a>
+        </div>
+
+        <div class="hero-stats animate-stats">
+          <div class="stat">
+            <span class="stat-num" data-target="10">0</span>
+            <span class="stat-label">Niveles educativos</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num stat-text">ABP</span>
+            <span class="stat-label">Metodología activa</span>
+          </div>
+          <div class="stat-divider"></div>
+        </div>
+      </div>
+
+      <div class="hero-imagen animate-image">
+        <div class="hero-img-card">
+          <img src="assets/images/heroes.png"
+               alt="Centro Educativo Héroes"
+               class="hero-logo-grande">
+          <div class="hero-img-decoracion-1"></div>
+          <div class="hero-img-decoracion-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-ola">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#ffffff"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- NIVELES EDUCATIVOS -->
+  <section class="niveles">
+    <div class="niveles-container">
+      <p class="niveles-titulo">Oferta educativa</p>
+      <div class="niveles-lista">
+        <span class="nivel-pill preescolar">Sala cuna</span>
+        <span class="nivel-pill preescolar">Párvulos</span>
+        <span class="nivel-pill preescolar">Pre-jardín</span>
+        <span class="nivel-pill preescolar">Jardín</span>
+        <span class="nivel-pill preescolar">Transición</span>
+        <span class="nivel-pill primaria">Grado 1°</span>
+        <span class="nivel-pill primaria">Grado 2°</span>
+        <span class="nivel-pill primaria">Grado 3°</span>
+        <span class="nivel-pill primaria">Grado 4°</span>
+        <span class="nivel-pill primaria">Grado 5°</span>
+      </div>
+    </div>
+  </section>
+<!-- QUIÉNES SOMOS -->
+<section class="seccion quienes-somos" id="quienes-somos">
+  <div class="seccion-container">
+
+    <div class="seccion-encabezado">
+      <span class="seccion-etiqueta">Nuestra institución</span>
+      <h2 class="seccion-titulo">¿Quiénes somos?</h2>
+      <p class="seccion-subtitulo">
+        Una comunidad educativa comprometida con el desarrollo integral
+        de cada estudiante desde sus primeros años.
+      </p>
+    </div>
+
+    <div class="qs-grid">
+
+      <!-- Tarjeta misión -->
+      <div class="qs-card reveal">
+        <div class="qs-card-icono icono-azul">🎯</div>
+        <h3 class="qs-card-titulo">Misión</h3>
+        <p class="qs-card-texto">
+          Formar estudiantes íntegros mediante el aprendizaje basado en
+          proyectos, desarrollando habilidades para la vida con valores,
+          creatividad y pensamiento crítico.
+        </p>
+      </div>
+
+      <!-- Tarjeta visión -->
+      <div class="qs-card reveal">
+        <div class="qs-card-icono icono-verde">🌟</div>
+        <h3 class="qs-card-titulo">Visión</h3>
+        <p class="qs-card-texto">
+          Ser reconocidos como un centro educativo de excelencia que
+          transforma vidas, forma héroes y contribuye al desarrollo
+          de una sociedad más justa y creativa.
+        </p>
+      </div>
+
+      <!-- Tarjeta metodología -->
+      <div class="qs-card reveal">
+        <div class="qs-card-icono icono-azul">🧩</div>
+        <h3 class="qs-card-titulo">Metodología</h3>
+        <p class="qs-card-texto">
+          Aplicamos el Aprendizaje Basado en Proyectos (ABP), permitiendo
+          a nuestros estudiantes vivir experiencias significativas,
+          dinámicas y transformadoras.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Valores -->
+    <div class="qs-valores reveal">
+      <p class="qs-valores-titulo">Nuestros valores</p>
+      <div class="qs-valores-lista">
+        <span class="valor-chip">❤️ Respeto</span>
+        <span class="valor-chip">🤝 Responsabilidad</span>
+        <span class="valor-chip">💡 Creatividad</span>
+        <span class="valor-chip">🌱 Compromiso</span>
+        <span class="valor-chip">⭐ Excelencia</span>
+        <span class="valor-chip">🦸 Valentía</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SEPARADOR DECORATIVO -->
+<div class="separador-ola">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+    <path d="M0,30 C480,60 960,0 1440,30 L1440,60 L0,60 Z" fill="#F0F7FF"/>
+  </svg>
+</div>
+
+<!-- SERVICIOS -->
+<section class="seccion servicios" id="servicios">
+  <div class="seccion-container">
+
+    <div class="seccion-encabezado">
+      <span class="seccion-etiqueta">Lo que ofrecemos</span>
+      <h2 class="seccion-titulo">Servicios educativos</h2>
+      <p class="seccion-subtitulo">
+        Una experiencia completa pensada para el crecimiento integral
+        de cada uno de nuestros héroes.
+      </p>
+    </div>
+
+    <div class="srv-grid">
+
+      <div class="srv-card reveal">
+        <div class="srv-icono">📚</div>
+        <h3 class="srv-titulo">Educación basada en proyectos</h3>
+        <p class="srv-texto">
+          Metodología activa que conecta el aprendizaje con la vida real,
+          fomentando la investigación, la creatividad y el trabajo en equipo.
+        </p>
+      </div>
+
+      <div class="srv-card reveal">
+        <div class="srv-icono">👩‍🏫</div>
+        <h3 class="srv-titulo">Docentes altamente calificados</h3>
+        <p class="srv-texto">
+          Equipo pedagógico comprometido con la formación integral,
+          en constante actualización y con vocación de servicio.
+        </p>
+      </div>
+
+      <div class="srv-card reveal">
+        <div class="srv-icono">🖥️</div>
+        <h3 class="srv-titulo">Aulas digitales e interactivas</h3>
+        <p class="srv-texto">
+          Tecnología moderna que fortalece las inteligencias múltiples
+          y prepara a los estudiantes para el mundo digital.
+        </p>
+      </div>
+
+      <div class="srv-card reveal">
+        <div class="srv-icono">⚽</div>
+        <h3 class="srv-titulo">Actividades extracurriculares</h3>
+        <p class="srv-texto">
+          Deporte, arte, tecnología, cocina, música y experimentos
+          para el desarrollo integral fuera del aula.
+        </p>
+      </div>
+
+      <div class="srv-card reveal">
+        <div class="srv-icono">🍽️</div>
+        <h3 class="srv-titulo">Restaurante escolar</h3>
+        <p class="srv-texto">
+          Alimentación balanceada y nutritiva preparada con cariño
+          para el bienestar y energía de los estudiantes.
+        </p>
+      </div>
+
+      <div class="srv-card reveal">
+        <div class="srv-icono">🚌</div>
+        <h3 class="srv-titulo">Ruta escolar</h3>
+        <p class="srv-texto">
+          Transporte seguro, puntual y confiable para que los padres
+          tengan tranquilidad en el traslado de sus hijos.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- SEPARADOR DECORATIVO 2 -->
+<div class="separador-ola invertido">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+    <path d="M0,30 C480,60 960,0 1440,30 L1440,60 L0,60 Z" fill="#F0F7FF"/>
+  </svg>
+</div>
+
+<!-- LLAMADO A LA ACCIÓN -->
+<section class="cta" id="contacto-rapido">
+  <div class="cta-container reveal">
+    <h2 class="cta-titulo">¿Quieres hacer parte de nuestra comunidad?</h2>
+    <p class="cta-texto">
+      Contáctanos hoy y conoce todo lo que el Centro Educativo Héroes
+      tiene para tu familia.
+    </p>
+    <div class="cta-botones">
+      <a href="https://wa.me/573000000000"
+         target="_blank"
+         class="cta-btn-wsp">
+        💬 Escríbenos por WhatsApp
+      </a>
+      <a routerLink="/contacto" class="cta-btn-contacto">
+        Ver información de contacto
+      </a>
+    </div>
+  </div>
+</section>
+</main>

@@ -1,0 +1,42 @@
+<header class="header">
+
+  <!-- Izquierda -->
+  <div class="header-izq">
+    <button class="header-toggle" (click)="toggle()" title="Colapsar menú">
+    </button>
+    <div class="header-fecha">{{ fechaHoy }}</div>
+  </div>
+
+  <!-- Derecha -->
+  <div class="header-der">
+
+    <!-- Notificaciones -->
+    <button class="header-btn" title="Notificaciones">
+        <span class="header-badge">10</span>
+    </button>
+
+    <!-- Perfil usuario -->
+    <div class="header-perfil" (click)="toggleMenuUsuario()">
+      <div class="header-avatar">
+        {{ iniciales }}
+      </div>
+      <div class="header-info">
+        <span class="header-nombre">{{ usuario.nombre }} {{ usuario.apellido }}</span>
+        <span class="header-rol">{{ usuario.rol }}</span>
+      </div>
+      <span class="header-chevron">▾</span>
+    </div>
+
+    <!-- Menú desplegable usuario -->
+    <div class="header-dropdown" *ngIf="menuUsuarioAbierto">
+      <a routerLink="/sistema/configuracion" class="dropdown-item">
+        Configuración
+      </a>
+      <div class="dropdown-divider"></div>
+      <button class="dropdown-item dropdown-logout">
+        Cerrar sesión
+      </button>
+    </div>
+
+  </div>
+</header>
