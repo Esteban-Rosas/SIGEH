@@ -4,15 +4,15 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
+  standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './header.html',
-  styleUrl: './header.css'
+  styleUrls: ['./header.css']   // mejor practice (o styleUrl si prefieres)
 })
 export class HeaderComponent {
   @Input()  sidebarAbierto = true;
   @Output() toggleSidebar  = new EventEmitter<void>();
 
-  // Después vendrá del AuthService
   usuario = {
     nombre:   'Administrador',
     apellido: 'SIGEH',
@@ -21,6 +21,7 @@ export class HeaderComponent {
   };
 
   menuUsuarioAbierto = false;
+  notificaciones = 10;   // ahora es reactivo
 
   toggle() {
     this.toggleSidebar.emit();

@@ -1,3 +1,4 @@
+/* ---------- HEADER BASE ---------- */
 .header {
   height: 64px;
   background: #fff;
@@ -9,106 +10,144 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
-/* Izquierda */
+/* ---------- LADO IZQUIERDO ---------- */
 .header-izq {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
 }
 
+/* Botón de menú */
 .header-toggle {
   background: none;
   border: none;
-  font-size: 20px;
-  cursor: pointer;
   color: #475569;
-  padding: 4px 8px;
-  border-radius: 6px;
-  transition: background 0.2s;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+
+.header-toggle i {
+  font-size: 22px;
+  transition: transform 0.3s ease;
+}
+
+/* Pequeño giro para feedback visual al cambiar estado */
+.header-toggle:hover i {
+  transform: scale(1.1);
 }
 
 .header-toggle:hover {
-  background: #F0F4F8;
+  background: #F1F5F9;
+  color: #0A2B4E;
 }
 
+/* Fecha estilizada */
 .header-fecha {
   font-size: 13px;
-  color: #94A3B8;
+  color: #64748B;
   text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* Derecha */
+.header-icono-fecha {
+  font-size: 16px;
+  color: #94A3B8;
+}
+
+/* ---------- LADO DERECHO ---------- */
 .header-der {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   position: relative;
 }
 
+/* Botones de icono (notificaciones) */
 .header-btn {
   position: relative;
   background: none;
   border: none;
-  font-size: 20px;
+  color: #475569;
   cursor: pointer;
-  padding: 6px;
-  border-radius: 8px;
-  transition: background 0.2s;
+  padding: 8px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+
+.header-btn i {
+  font-size: 22px;
 }
 
 .header-btn:hover {
-  background: #F0F4F8;
+  background: #F1F5F9;
+  color: #0A2B4E;
 }
 
+/* Badge de notificaciones */
 .header-badge {
   position: absolute;
-  top: 2px;
-  right: 2px;
+  top: 4px;
+  right: 4px;
   background: #EF4444;
   color: #fff;
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
 }
 
-/* Perfil */
+/* ---------- PERFIL ---------- */
 .header-perfil {
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 10px;
+  padding: 6px 10px 6px 6px;
+  border-radius: 12px;
   transition: background 0.2s;
   user-select: none;
 }
 
 .header-perfil:hover {
-  background: #F0F4F8;
+  background: #F1F5F9;
 }
 
+/* Avatar */
 .header-avatar {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: linear-gradient(135deg, #1C4E80, #3A7CA5);
   color: #fff;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  border: 2px solid #F5C518;   /* anillo dorado sutil */
 }
 
+/* Información textual */
 .header-info {
   display: flex;
   flex-direction: column;
@@ -120,57 +159,82 @@
   font-weight: 600;
   color: #1E293B;
   white-space: nowrap;
+  line-height: 1;
 }
 
 .header-rol {
   font-size: 11px;
   color: #94A3B8;
+  line-height: 1;
 }
 
+/* Chevron */
 .header-chevron {
-  font-size: 11px;
+  font-size: 20px;
   color: #94A3B8;
+  transition: transform 0.3s;
 }
 
-/* Dropdown */
+.header-perfil:hover .header-chevron {
+  color: #0A2B4E;
+}
+
+/* ---------- DROPDOWN ANIMADO ---------- */
 .header-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 12px);
   right: 0;
   background: #fff;
   border: 1px solid #E2E8F0;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  min-width: 200px;
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+  min-width: 210px;
   padding: 6px;
   z-index: 100;
+  transform-origin: top right;
+  animation: dropdownEntrada 0.2s ease-out;
 }
 
+@keyframes dropdownEntrada {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Items del dropdown */
 .dropdown-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   padding: 10px 14px;
-  font-size: 13px;
-  color: #475569;
-  border-radius: 8px;
+  font-size: 13.5px;
+  color: #334155;
+  border-radius: 10px;
   cursor: pointer;
   border: none;
   background: none;
   width: 100%;
   text-align: left;
   text-decoration: none;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-item i {
+  font-size: 18px;
+  opacity: 0.7;
 }
 
 .dropdown-item:hover {
   background: #F8FAFC;
 }
 
-.dropdown-divider {
-  height: 1px;
-  background: #E2E8F0;
-  margin: 4px 0;
+.dropdown-item:hover i {
+  opacity: 1;
 }
 
 .dropdown-logout {
@@ -181,7 +245,19 @@
   background: #FEF2F2 !important;
 }
 
+/* Separador */
+.dropdown-divider {
+  height: 1px;
+  background: #EDF2F7;
+  margin: 4px 0;
+}
+
+/* ---------- RESPONSIVE ---------- */
 @media (max-width: 600px) {
-  .header-fecha { display: none; }
-  .header-info  { display: none; }
+  .header-fecha {
+    display: none;
+  }
+  .header-info {
+    display: none;
+  }
 }
