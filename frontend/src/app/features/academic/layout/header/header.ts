@@ -22,6 +22,7 @@ export class HeaderComponent {
 
   menuUsuarioAbierto = false;
   notificaciones = 10;   // ahora es reactivo
+  mensajes = 5;          // cantidad de mensajes nuevos
 
   toggle() {
     this.toggleSidebar.emit();

@@ -1,7 +1,7 @@
 <div class="dashboard">
-  <!-- Cabecera de bienvenida -->
+  <!-- Bienvenida -->
   <div class="dashboard-bienvenida">
-    <div class="dashboard-bienvenida-texto">
+    <div>
       <h1 class="dashboard-titulo">{{ saludo }}, Administrador</h1>
       <p class="dashboard-sub">Bienvenido al Sistema de Gestión Educativa Héroes</p>
     </div>
@@ -11,10 +11,10 @@
     </div>
   </div>
 
-  <!-- Tarjetas resumen (estadísticas) -->
+  <!-- Tarjetas resumen -->
   <div class="dashboard-cards">
     <div class="dash-card" *ngFor="let item of resumen">
-      <div class="dash-card-icono" [style.background]="item.color + '18'">
+      <div class="dash-card-icono" [style.background]="item.color + '15'">
         <i class="material-icons-round" [style.color]="item.color">{{ item.icono }}</i>
       </div>
       <div class="dash-card-info">
@@ -24,23 +24,109 @@
     </div>
   </div>
 
-  <!-- Sección "En construcción" rediseñada -->
-  <div class="dashboard-construccion">
-    <div class="construccion-card">
-      <div class="construccion-icono">
-        <i class="material-icons-round">construction</i>
+  <!-- Sección principal: calendario + panel derecho -->
+  <div class="dashboard-grid">
+    <!-- CALENDARIO SEMANAL -->
+    <div class="calendario-card">
+      <div class="calendario-header">
+        <h2 class="calendario-titulo">
+          <i class="material-icons-round">calendar_view_week</i>
+          Calendario Semanal
+        </h2>
+        <div class="calendario-nav">
+          <button class="nav-btn" (click)="semanaAnterior()">
+            <i class="material-icons-round">chevron_left</i>
+          </button>
+          <span class="nav-label">{{ etiquetaSemana }}</span>
+          <button class="nav-btn" (click)="semanaSiguiente()">
+            <i class="material-icons-round">chevron_right</i>
+          </button>
+        </div>
       </div>
-      <div class="construccion-texto">
-        <h3>Módulos en desarrollo</h3>
-        <p>
-          Pronto tendrás acceso a reportes, gráficos y seguimiento académico en tiempo real.
-          Estamos preparando una experiencia completa para la comunidad educativa.
-        </p>
+
+      <div class="calendario-tabla-wrap">
+        <table class="calendario-tabla">
+          <thead>
+            <tr>
+              <th class="th-hora">Hora</th>
+              <th *ngFor="let dia of dias; let i = index" class="th-dia">
+                <div class="dia-nombre">{{ dia }}</div>
+                <div class="dia-fecha">{{ fechasDias[i] }}</div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let hora of horas">
+              <td class="td-hora">{{ hora }}</td>
+              <td *ngFor="let dia of dias" class="td-celda">
+                <div class="clase-chip"
+                     *ngIf="getClase(dia, hora) as clase"
+                     [style.background]="clase.color">
+                  <span class="clase-materia">{{ clase.materia }}</span>
+                  <span class="clase-aula">{{ clase.aula }}</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="construccion-barra">
-        <div class="construccion-progreso"></div>
+    </div>
+
+    <!-- PANEL DERECHO -->
+    <div class="panel-derecho">
+      <!-- Próximos eventos -->
+      <div class="panel-card">
+        <div class="panel-header">
+          <h3 class="panel-titulo">
+            <i class="material-icons-round">event_note</i>
+            Próximos Eventos
+          </h3>
+          <a href="#" class="panel-ver-mas">Ver todos</a>
+        </div>
+        <ul class="eventos-lista">
+          <li *ngFor="let evento of proximosEventos" class="evento-item">
+            <div class="evento-icono" [style.background]="evento.color + '18'">
+              <i class="material-icons-round" [style.color]="evento.color">{{ evento.icono }}</i>
+            </div>
+            <div class="evento-info">
+              <span class="evento-titulo">{{ evento.titulo }}</span>
+              <span class="evento-fecha">{{ evento.fecha }}</span>
+            </div>
+          </li>
+        </ul>
       </div>
-      <span class="construccion-estado">Trabajando en ello</span>
+
+      <!-- Cumpleaños del mes -->
+      <div class="panel-card">
+        <div class="panel-header">
+          <h3 class="panel-titulo">
+            <i class="material-icons-round">cake</i>
+            Cumpleaños del Mes
+          </h3>
+          <span class="panel-mes">{{ mesActual }}</span>
+        </div>
+        <ul class="cumple-lista">
+          <li *ngFor="let c of cumpleanios"
+              class="cumple-item"
+              [class.cumple-hoy]="c.dia === diaHoy">
+            <div class="cumple-dia"
+                 [style.background]="c.dia === diaHoy ? '#F5C518' : '#E3F2FD'"
+                 [style.color]="c.dia === diaHoy ? '#0A2B4E' : '#1C4E80'">
+              {{ c.dia }}
+            </div>
+            <div class="cumple-info">
+              <span class="cumple-nombre">{{ c.nombre }}</span>
+              <span class="cumple-grado">
+                <i class="material-icons-round cumple-tipo-icono">
+                  {{ c.tipo === 'docente' ? 'person' : 'school' }}
+                </i>
+                {{ c.grado }}
+              </span>
+            </div>
+            <span *ngIf="c.dia === diaHoy" class="cumple-hoy-badge">¡Hoy!</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

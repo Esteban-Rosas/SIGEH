@@ -12,7 +12,13 @@
     <!-- Notificaciones -->
     <button class="header-btn" title="Notificaciones">
       <i class="material-icons-round">notifications</i>
-      <span class="header-badge" *ngIf="notificaciones === 0 ? false : true">10</span>
+      <span class="header-badge" *ngIf="notificaciones === 0 ? false : true">{{ notificaciones }}</span>
+    </button>
+
+    <!-- Mensajes -->
+    <button class="header-btn" title="Mensajes">
+      <i class="material-icons-round">message</i>
+      <span class="header-badge" *ngIf="mensajes === 0 ? false : true">{{ mensajes }}</span>
     </button>
 
     <!-- Perfil usuario -->
