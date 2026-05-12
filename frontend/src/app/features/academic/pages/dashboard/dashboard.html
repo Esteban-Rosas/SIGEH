@@ -7,7 +7,7 @@
     </div>
     <div class="dashboard-badge">
       <i class="material-icons-round">auto_awesome</i>
-      <span>SIGEH v1.2</span>
+      <span>SIGEH v1.3</span>
     </div>
   </div>
 
@@ -124,6 +124,31 @@
               </span>
             </div>
             <span *ngIf="c.dia === diaHoy" class="cumple-hoy-badge">¡Hoy!</span>
+          </li>
+        </ul>
+      </div>
+      <!-- Rendimiento General -->
+      <div class="panel-card">
+        <div class="panel-header">
+          <h3 class="panel-titulo">
+            <i class="material-icons-round">bar_chart</i>
+            Rendimiento General
+          </h3>
+          <span class="panel-mes">Por grado</span>
+        </div>
+        <ul class="rendimiento-lista">
+          <li *ngFor="let grado of rendimientoGrados" class="rendimiento-item">
+            <span class="rendimiento-grado">{{ grado.grado }}</span>
+            <div class="rendimiento-barra-fondo">
+              <div
+                class="rendimiento-barra-relleno"
+                [style.width.%]="grado.porcentaje"
+                [style.background]="grado.color"
+              ></div>
+            </div>
+            <span class="rendimiento-porcentaje" [style.color]="grado.color">
+              {{ grado.porcentaje }}%
+            </span>
           </li>
         </ul>
       </div>

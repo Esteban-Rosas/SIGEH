@@ -86,6 +86,15 @@ export class DashboardComponent {
     { nombre:'Pedro Sánchez',   grado:'Docente',  dia:27,  tipo:'docente'    },
   ];
 
+  rendimientoGrados = [
+  { grado: 'Transición', porcentaje: 78, color: '#2E7D32' },
+  { grado: '1°',         porcentaje: 82, color: '#388E3C' },
+  { grado: '2°',         porcentaje: 69, color: '#F9A825' },
+  { grado: '3°',         porcentaje: 91, color: '#388E3C' },
+  { grado: '4°',         porcentaje: 74, color: '#F9A825' },
+  { grado: '5°',         porcentaje: 63, color: '#E65100' },
+];
+
   getClase(dia: string, hora: string): ClaseHorario | null {
     return this.horario[dia]?.[hora] || null;
   }
@@ -119,5 +128,11 @@ export class DashboardComponent {
 
   get diaHoy(): number {
     return new Date().getDate();
+  }
+
+  getColorPorcentaje(p: number): string {
+    if (p >= 80) return '#2E7D32';
+    if (p >= 65) return '#F9A825'; 
+    return '#E65100';
   }
 }
