@@ -1,0 +1,359 @@
+<div class="modulo">
+
+  <!-- ── LISTA ─────────────────────────────── -->
+  <ng-container *ngIf="vista === 'lista'">
+
+    <!-- Encabezado -->
+    <div class="mod-header">
+      <div>
+        <h1 class="mod-titulo">Estudiantes</h1>
+        <p class="mod-sub">
+          {{ estudiantes.length }} registrados · {{ totalActivos }} activos
+        </p>
+      </div>
+      <button class="btn-primario" (click)="vista = 'nuevo'; form = formVacio()">
+        + Nuevo estudiante
+      </button>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filtros">
+      <div class="filtro-busqueda">
+        <span class="filtro-icono">🔍</span>
+        <input
+          type="text"
+          placeholder="Buscar por nombre, documento o correo..."
+          [(ngModel)]="busqueda"
+          (input)="filtrar()"
+          class="filtro-input">
+      </div>
+      <select class="filtro-select"
+              [(ngModel)]="filtroGrado"
+              (change)="filtrar()">
+        <option value="">Todos los grados</option>
+        <option *ngFor="let g of gradosUnicos" [value]="g">{{ g }}</option>
+      </select>
+    </div>
+
+    <!-- Mensaje error -->
+    <div class="alerta alerta-error" *ngIf="error">{{ error }}</div>
+
+    <!-- Cargando -->
+    <div class="cargando" *ngIf="cargando">
+      <div class="spinner"></div>
+      <span>Cargando estudiantes...</span>
+    </div>
+
+    <!-- Tabla -->
+    <div class="tabla-wrap" *ngIf="!cargando">
+      <table class="tabla" *ngIf="estudiantesFiltrados.length > 0; else sinResultados">
+        <thead>
+          <tr>
+            <th>Estudiante</th>
+            <th>Documento</th>
+            <th>Grado</th>
+            <th>Contacto</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let est of estudiantesFiltrados">
+            <td>
+              <div class="est-perfil">
+                <div class="est-avatar">{{ iniciales(est.nombre, est.apellido) }}</div>
+                <div>
+                  <div class="est-nombre">{{ est.nombre }} {{ est.apellido }}</div>
+                  <div class="est-correo">{{ est.correo }}</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="doc-tipo">{{ est.tipo_documento }}</div>
+              <div class="doc-num">{{ est.numero_documento }}</div>
+            </td>
+            <td>
+              <span class="grado-badge" *ngIf="est.grado_nombre">
+                {{ est.grado_nombre }}
+                <span *ngIf="est.grupo_nombre"> · {{ est.grupo_nombre }}</span>
+              </span>
+              <span class="sin-grado" *ngIf="!est.grado_nombre">Sin asignar</span>
+            </td>
+            <td>{{ est.telefono || '—' }}</td>
+            <td>
+              <span class="estado-badge"
+                    [class.activo]="est.estado === 'activo'"
+                    [class.inactivo]="est.estado !== 'activo'">
+                {{ est.estado }}
+              </span>
+            </td>
+            <td>
+              <div class="acciones">
+                <button class="acc-btn acc-ver"
+                        (click)="verDetalle(est.id_estudiante)"
+                        title="Ver detalle">👁️</button>
+                <button class="acc-btn acc-editar"
+                        (click)="abrirEditar(est)"
+                        title="Editar">✏️</button>
+                <button class="acc-btn"
+                        [class.acc-activar]="est.estado !== 'activo'"
+                        [class.acc-desactivar]="est.estado === 'activo'"
+                        (click)="cambiarEstado(est)"
+                        [title]="est.estado === 'activo' ? 'Desactivar' : 'Activar'">
+                  {{ est.estado === 'activo' ? '🔴' : '🟢' }}
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #sinResultados>
+        <div class="sin-datos">
+          <span></span>
+          <p>No se encontraron estudiantes con esos criterios.</p>
+        </div>
+      </ng-template>
+    </div>
+
+  </ng-container>
+
+  <!-- ── FORMULARIO (NUEVO / EDITAR) ────────── -->
+  <ng-container *ngIf="vista === 'nuevo' || vista === 'editar'">
+
+    <div class="mod-header">
+      <div>
+        <h1 class="mod-titulo">
+          {{ vista === 'nuevo' ? 'Nuevo estudiante' : 'Editar estudiante' }}
+        </h1>
+        <p class="mod-sub">
+          {{ vista === 'nuevo'
+            ? 'Completa el formulario para registrar un nuevo estudiante'
+            : 'Modifica los datos del estudiante' }}
+        </p>
+      </div>
+      <button class="btn-secundario" (click)="irALista()">← Volver</button>
+    </div>
+
+    <div class="alerta alerta-error"  *ngIf="error">{{ error }}</div>
+    <div class="alerta alerta-exito"  *ngIf="exito">{{ exito }}</div>
+
+    <div class="form-grid">
+
+      <!-- Datos del estudiante -->
+      <div class="form-card">
+        <h3 class="form-card-titulo">Datos del estudiante</h3>
+        <div class="form-fila">
+          <div class="form-grupo">
+            <label>Nombres *</label>
+            <input type="text" [(ngModel)]="form.nombre"
+                   placeholder="Nombres completos">
+          </div>
+          <div class="form-grupo">
+            <label>Apellidos *</label>
+            <input type="text" [(ngModel)]="form.apellido"
+                   placeholder="Apellidos completos">
+          </div>
+        </div>
+        <div class="form-fila">
+          <div class="form-grupo">
+            <label>Tipo de documento *</label>
+            <select [(ngModel)]="form.tipo_documento">
+              <option value="TI">Tarjeta de identidad (TI)</option>
+              <option value="RC">Registro civil (RC)</option>
+              <option value="CC">Cédula de ciudadanía (CC)</option>
+              <option value="PP">Pasaporte (PP)</option>
+            </select>
+          </div>
+          <div class="form-grupo">
+            <label>Número de documento *</label>
+            <input type="text" [(ngModel)]="form.numero_documento"
+                   placeholder="Número de documento">
+          </div>
+        </div>
+        <div class="form-fila">
+          <div class="form-grupo">
+            <label>Correo electrónico</label>
+            <input type="email" [(ngModel)]="form.correo"
+                   placeholder="correo@ejemplo.com">
+          </div>
+          <div class="form-grupo">
+            <label>Teléfono</label>
+            <input type="tel" [(ngModel)]="form.telefono"
+                   placeholder="300 000 0000">
+          </div>
+        </div>
+        <div class="form-fila">
+          <div class="form-grupo">
+            <label>Fecha de nacimiento</label>
+            <input type="date" [(ngModel)]="form.fecha_nacimiento">
+          </div>
+          <div class="form-grupo">
+            <label>ID Grupo</label>
+            <input type="number" [(ngModel)]="form.id_grupo"
+                   placeholder="ID del grupo (opcional)">
+          </div>
+        </div>
+      </div>
+
+      <!-- Datos del acudiente -->
+      <div class="form-card" *ngIf="vista === 'nuevo'">
+        <h3 class="form-card-titulo">Acudiente principal</h3>
+        <div class="form-fila">
+          <div class="form-grupo">
+            <label>Nombres del acudiente</label>
+            <input type="text" [(ngModel)]="form.acudiente_nombre"
+                   placeholder="Nombres completos">
+          </div>
+          <div class="form-grupo">
+            <label>Apellidos del acudiente</label>
+            <input type="text" [(ngModel)]="form.acudiente_apellido"
+                   placeholder="Apellidos completos">
+          </div>
+        </div>
+        <div class="form-fila">
+          <div class="form-grupo">
+            <label>Documento del acudiente</label>
+            <input type="text" [(ngModel)]="form.acudiente_documento"
+                   placeholder="Número de documento">
+          </div>
+          <div class="form-grupo">
+            <label>Parentesco</label>
+            <select [(ngModel)]="form.acudiente_parentesco">
+              <option value="madre">Madre</option>
+              <option value="padre">Padre</option>
+              <option value="abuelo">Abuelo/a</option>
+              <option value="tio">Tío/a</option>
+              <option value="hermano">Hermano/a</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-fila">
+          <div class="form-grupo">
+            <label>Teléfono del acudiente</label>
+            <input type="tel" [(ngModel)]="form.acudiente_telefono"
+                   placeholder="300 000 0000">
+          </div>
+          <div class="form-grupo">
+            <label>Correo del acudiente</label>
+            <input type="email" [(ngModel)]="form.acudiente_correo"
+                   placeholder="correo@ejemplo.com">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Botones -->
+    <div class="form-acciones">
+      <button class="btn-secundario" (click)="irALista()">Cancelar</button>
+      <button class="btn-primario"
+              (click)="guardar()"
+              [disabled]="guardando">
+        {{ guardando ? 'Guardando...' : (vista === 'nuevo' ? 'Registrar estudiante' : 'Guardar cambios') }}
+      </button>
+    </div>
+
+  </ng-container>
+
+  <!-- ── DETALLE ─────────────────────────────── -->
+  <ng-container *ngIf="vista === 'detalle' && estudianteSeleccionado">
+
+    <div class="mod-header">
+      <div>
+        <h1 class="mod-titulo">👁️ Detalle del estudiante</h1>
+      </div>
+      <div class="header-acciones">
+        <button class="btn-secundario"
+                (click)="abrirEditar(estudianteSeleccionado.estudiante)">
+           Editar
+        </button>
+        <button class="btn-secundario" (click)="irALista()">← Volver</button>
+      </div>
+    </div>
+
+    <div class="detalle-grid">
+
+      <!-- Tarjeta principal -->
+      <div class="detalle-card detalle-principal">
+        <div class="detalle-avatar-grande">
+          {{ iniciales(estudianteSeleccionado.estudiante.nombre,
+                       estudianteSeleccionado.estudiante.apellido) }}
+        </div>
+        <h2 class="detalle-nombre">
+          {{ estudianteSeleccionado.estudiante.nombre }}
+          {{ estudianteSeleccionado.estudiante.apellido }}
+        </h2>
+        <span class="estado-badge"
+              [class.activo]="estudianteSeleccionado.estudiante.estado === 'activo'"
+              [class.inactivo]="estudianteSeleccionado.estudiante.estado !== 'activo'">
+          {{ estudianteSeleccionado.estudiante.estado }}
+        </span>
+        <div class="detalle-grado" *ngIf="estudianteSeleccionado.estudiante.grado_nombre">
+        {{ estudianteSeleccionado.estudiante.grado_nombre }}
+          <span *ngIf="estudianteSeleccionado.estudiante.grupo_nombre">
+            · Grupo {{ estudianteSeleccionado.estudiante.grupo_nombre }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Información personal -->
+      <div class="detalle-card">
+        <h3 class="detalle-card-titulo">Información personal</h3>
+        <div class="detalle-fila">
+          <span class="detalle-label">Documento</span>
+          <span>{{ estudianteSeleccionado.estudiante.tipo_documento }}
+                {{ estudianteSeleccionado.estudiante.numero_documento }}</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-label">Correo</span>
+          <span>{{ estudianteSeleccionado.estudiante.correo || '—' }}</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-label">Teléfono</span>
+          <span>{{ estudianteSeleccionado.estudiante.telefono || '—' }}</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-label">Nacimiento</span>
+          <span>{{ (estudianteSeleccionado.estudiante.fecha_nacimiento
+                    | date:'dd/MM/yyyy') || '—' }}</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-label">Matrícula</span>
+          <span>{{ (estudianteSeleccionado.estudiante.fecha_matricula
+                    | date:'dd/MM/yyyy') || '—' }}</span>
+        </div>
+      </div>
+
+      <!-- Acudientes -->
+      <div class="detalle-card">
+        <h3 class="detalle-card-titulo">Acudientes</h3>
+        <div *ngIf="estudianteSeleccionado.acudientes?.length > 0; else sinAcudientes">
+          <div *ngFor="let a of estudianteSeleccionado.acudientes"
+               class="acudiente-item">
+            <div class="acudiente-avatar">
+              {{ iniciales(a.nombre, a.apellido) }}
+            </div>
+            <div>
+              <div class="acudiente-nombre">
+                {{ a.nombre }} {{ a.apellido }}
+                <span class="acudiente-principal" *ngIf="a.es_principal">
+                  Principal
+                </span>
+              </div>
+              <div class="acudiente-info">
+                {{ a.parentesco }} · {{ a.telefono || '—' }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-template #sinAcudientes>
+          <p class="sin-info">No hay acudientes registrados.</p>
+        </ng-template>
+      </div>
+
+    </div>
+  </ng-container>
+
+</div>

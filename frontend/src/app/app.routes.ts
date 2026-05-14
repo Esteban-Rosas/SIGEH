@@ -58,6 +58,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/academic/pages/dashboard/dashboard')
             .then(m => m.DashboardComponent)
+      },
+      {
+        path: 'estudiantes',
+        loadComponent: () =>
+          import('./features/academic/pages/estudiantes/estudiantes')
+            .then(m => m.EstudiantesComponent)
       }
     ]
   },
